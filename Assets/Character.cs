@@ -9,17 +9,30 @@ public class Character : MonoBehaviour
 
   public float inputTimer;
   const float moveDelay = 0.25f;
+  public Spell primarySpell;
 
   // Start is called before the first frame update
   void Start()
   {
+    primarySpell = FathomSpell();
+  }
+
+  Spell FathomSpell()
+  {
     
+    Spell testSpell = new Spell("testName", 5);
+    return testSpell;
   }
 
   // Update is called once per frame
   void Update()
   {
     Move();
+
+    if (Input.GetKey(KeyCode.E))
+    {
+      Cast();
+    }
   }
   // TODO: make the highest if statement not take priority
   void Move()
@@ -53,6 +66,13 @@ public class Character : MonoBehaviour
       }
     }
   }
+
+  bool Cast()
+  {
+    primarySpell.BeginCasting();
+    return true;
+  }
+
 }
 
 

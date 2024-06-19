@@ -1,12 +1,28 @@
 using System.Collections.Generic;
-
-public class Spell {
+using UnityEngine;
+public class Spell : MonoBehaviour
+{
   
+  public string name;
   public float velocity;
   public List<SpellComponent> components;
 
-  public class SpellComponent {
-    public int position;
+  public class SpellComponent
+  {
+    public List<int> positions;
+    
+    public List<float> timings;
   }
 
+  public Spell(string name, float velocity)
+  {
+    this.name = name;
+    this.velocity = velocity;
+  }
+
+  public void BeginCasting()
+  {
+    Debug.Log("CAST!!!!!!");
+    return;
+  }
 }
