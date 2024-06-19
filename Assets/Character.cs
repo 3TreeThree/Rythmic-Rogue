@@ -20,7 +20,7 @@ public class Character : MonoBehaviour
   Spell FathomSpell()
   {
     
-    Spell testSpell = new Spell("testName", 5);
+    Spell testSpell = new("testName", 5);
     return testSpell;
   }
 
