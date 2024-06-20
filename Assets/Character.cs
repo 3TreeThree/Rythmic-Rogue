@@ -8,8 +8,10 @@ public class Character : MonoBehaviour
 {
   // stats for modifiers; speed, dmg, etc.
   public float inputTimer;
-  const float moveDelay = 0.25f;
+  const float UserInputDelay = 0.25f;
   public Spell primarySpell;
+
+  public GameObject menu;
 
   public class Equipment : Item 
   {
@@ -42,12 +44,11 @@ public class Character : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    Move();
-
+    UserInput();
     
   }
   // TODO: make the highest if statement not take priority
-  void Move()
+  void UserInput()
   {
     if (Input.GetKey(KeyCode.W) && inputTimer == 0)
     {
@@ -74,11 +75,19 @@ public class Character : MonoBehaviour
       Cast();
       inputTimer += Time.deltaTime;
     }
+    if (Input.GetKey(KeyCode.Escape) && inputTimer == 0)
+    {
+      if (CloseWindow() == false)
+      {
+        Pause();
+      }
+      inputTimer += Time.deltaTime;
+    }
     
     if (inputTimer != 0)
     {
       inputTimer += Time.deltaTime;
-      if (inputTimer >= moveDelay)
+      if (inputTimer >= UserInputDelay)
       {
         inputTimer = 0;
       }
@@ -87,10 +96,27 @@ public class Character : MonoBehaviour
 
   bool Cast()
   {
+
     primarySpell.BeginCasting();
     return true;
   }
 
+  // if there is a window open -> close it, return true
+  bool CloseWindow()
+  {
+    // TODO: maybe keep a list of windows and check if any are open?
+    return false;
+  }
+
+  // TODO: figure out how to pause
+  void Pause()
+  {
+    menu.SetActive(!menu.activeInHierarchy);
+    return;
+  }
+
+
+  
 }
 
 
