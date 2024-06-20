@@ -84,12 +84,13 @@ public class Character : MonoBehaviour
         }
       }
     }
+    // so like since this is outside the inputTimer check it just disables all user input when its in here
+    // Update() is still running, but the menu is open so it skips everything
     if (Input.GetKeyDown(KeyCode.Escape))
     {
       if (CloseWindow() == false)
       {
         Pause();
-        inputTimer = 1;
       } 
     }
   }
@@ -112,17 +113,14 @@ public class Character : MonoBehaviour
     return false;
   }
 
-  // TODO: figure out how to pause
   void Pause()
   {
     if (!menu.activeInHierarchy)
     {
-      Time.timeScale = 0;
       menu.SetActive(true);
     }
     else
     {
-      Time.timeScale = 1;
       menu.SetActive(false);
     }
     return;
