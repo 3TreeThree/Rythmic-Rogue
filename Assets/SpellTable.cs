@@ -7,11 +7,9 @@ public class SpellTable : MonoBehaviour
     [SerializeField] private bool triggerActive = false;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("before tag check");
         if (other.CompareTag("Player"))
         {
             triggerActive = true;
-            Debug.Log("Player in collider");
         }
     }
 

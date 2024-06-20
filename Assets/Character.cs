@@ -11,6 +11,10 @@ public class Character : MonoBehaviour
   const float moveDelay = 0.25f;
   public Spell primarySpell;
 
+  // list for equipment and corresponding buffs
+
+  // list for inventory
+
   // Start is called before the first frame update
   void Start()
   {
@@ -29,10 +33,7 @@ public class Character : MonoBehaviour
   {
     Move();
 
-    if (Input.GetKey(KeyCode.E))
-    {
-      Cast();
-    }
+    
   }
   // TODO: make the highest if statement not take priority
   void Move()
@@ -57,6 +58,12 @@ public class Character : MonoBehaviour
       this.transform.Translate(Vector2.left, Space.Self);
       inputTimer += Time.deltaTime;
     }
+    if (Input.GetKey(KeyCode.E) && inputTimer == 0)
+    {
+      Cast();
+      inputTimer += Time.deltaTime;
+    }
+    
     if (inputTimer != 0)
     {
       inputTimer += Time.deltaTime;

@@ -7,6 +7,7 @@ public class Spell : MonoBehaviour
   public float velocity;
   public List<SpellComponent> components;
 
+  // way for components to be turned into rhythm sections
   public class SpellComponent
   {
     public List<int> positions;
