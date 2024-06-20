@@ -3,7 +3,6 @@ using UnityEngine;
 public class Spell : MonoBehaviour
 {
   
-  public string name;
   public float velocity;
   public List<SpellComponent> components;
 
@@ -15,9 +14,8 @@ public class Spell : MonoBehaviour
     public List<float> timings;
   }
 
-  public Spell(string name, float velocity)
+  public Spell(float velocity)
   {
-    this.name = name;
     this.velocity = velocity;
   }
 
