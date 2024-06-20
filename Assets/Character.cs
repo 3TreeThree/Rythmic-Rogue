@@ -10,9 +10,7 @@ public class Character : MonoBehaviour
   public float inputTimer;
   const float UserInputDelay = 0.25f;
   public Spell primarySpell;
-
   public GameObject menu;
-
   public class Equipment : Item 
   {
     private List<Item> equiped;
@@ -50,53 +48,54 @@ public class Character : MonoBehaviour
   // TODO: make the highest if statement not take priority
   void UserInput()
   {
-    if (Input.GetKey(KeyCode.W) && inputTimer == 0)
+    if (!menu.activeInHierarchy)
     {
-      this.transform.Translate(Vector2.up, Space.Self);
-      inputTimer += Time.deltaTime;
+      if (Input.GetKey(KeyCode.W) && inputTimer == 0)
+      {
+        this.transform.Translate(Vector2.up, Space.Self);
+        inputTimer += Time.deltaTime;
+      }
+      if (Input.GetKey(KeyCode.S) && inputTimer == 0)
+      {
+        this.transform.Translate(Vector2.down, Space.Self);
+        inputTimer += Time.deltaTime;
+      }
+      if (Input.GetKey(KeyCode.D) && inputTimer == 0)
+      {
+        this.transform.Translate(Vector2.right, Space.Self);
+        inputTimer += Time.deltaTime;
+      }
+      if (Input.GetKey(KeyCode.A) && inputTimer == 0)
+      {
+        this.transform.Translate(Vector2.left, Space.Self);
+        inputTimer += Time.deltaTime;
+      }
+      if (Input.GetKey(KeyCode.E) && inputTimer == 0)
+      {
+        Cast();
+        inputTimer += Time.deltaTime;
+      }
+      if (inputTimer != 0)
+      {
+        inputTimer += Time.deltaTime;
+        if (inputTimer >= UserInputDelay)
+        {
+          inputTimer = 0;
+        }
+      }
     }
-    if (Input.GetKey(KeyCode.S) && inputTimer == 0)
-    {
-      this.transform.Translate(Vector2.down, Space.Self);
-      inputTimer += Time.deltaTime;
-    }
-    if (Input.GetKey(KeyCode.D) && inputTimer == 0)
-    {
-      this.transform.Translate(Vector2.right, Space.Self);
-      inputTimer += Time.deltaTime;
-    }
-    if (Input.GetKey(KeyCode.A) && inputTimer == 0)
-    {
-      this.transform.Translate(Vector2.left, Space.Self);
-      inputTimer += Time.deltaTime;
-    }
-    if (Input.GetKey(KeyCode.E) && inputTimer == 0)
-    {
-      Cast();
-      inputTimer += Time.deltaTime;
-    }
-    if (Input.GetKey(KeyCode.Escape) && inputTimer == 0)
+    if (Input.GetKeyDown(KeyCode.Escape))
     {
       if (CloseWindow() == false)
       {
         Pause();
-      }
-      inputTimer += Time.deltaTime;
-    }
-    
-    if (inputTimer != 0)
-    {
-      inputTimer += Time.deltaTime;
-      if (inputTimer >= UserInputDelay)
-      {
-        inputTimer = 0;
-      }
+        inputTimer = 1;
+      } 
     }
   }
 
   bool Cast()
   {
-
     primarySpell.BeginCasting();
     return true;
   }
@@ -104,8 +103,6 @@ public class Character : MonoBehaviour
   // if there is a window open -> close it, return true
   bool CloseWindow()
   {
-    // TODO: maybe keep a list of windows and check if any are open?
-    // https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
     GameObject[] menus = GameObject.FindGameObjectsWithTag("Menu");
     foreach (GameObject menu in menus)
     {
@@ -118,7 +115,16 @@ public class Character : MonoBehaviour
   // TODO: figure out how to pause
   void Pause()
   {
-    menu.SetActive(!menu.activeInHierarchy);
+    if (!menu.activeInHierarchy)
+    {
+      Time.timeScale = 0;
+      menu.SetActive(true);
+    }
+    else
+    {
+      Time.timeScale = 1;
+      menu.SetActive(false);
+    }
     return;
   }
 
