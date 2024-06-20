@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpellTable : MonoBehaviour
 {
     [SerializeField] private bool triggerActive = false;
+    public GameObject spellEditingMenu;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -38,6 +39,6 @@ public class SpellTable : MonoBehaviour
 
     public void OpenSpellEditing()
     {
-        Debug.Log("OpenSpellEditing");
+        spellEditingMenu.SetActive(!spellEditingMenu.activeInHierarchy);
     }
 }

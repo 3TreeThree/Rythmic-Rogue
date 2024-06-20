@@ -105,6 +105,13 @@ public class Character : MonoBehaviour
   bool CloseWindow()
   {
     // TODO: maybe keep a list of windows and check if any are open?
+    // https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
+    GameObject[] menus = GameObject.FindGameObjectsWithTag("Menu");
+    foreach (GameObject menu in menus)
+    {
+      menu.SetActive(false);
+      return true;
+    }
     return false;
   }
 
